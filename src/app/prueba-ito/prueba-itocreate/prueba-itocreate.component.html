@@ -1,0 +1,72 @@
+<div class="container">
+    <form [formGroup]="formGroup" (ngSubmit)="save()" class="example-form">
+        <div class="row">
+            <div class="col-3">
+                <div class="form-group">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Correo</mat-label>
+                        <input matInput placeholder="Usuario" formControlName="emailCtrl" [(ngModel)]="usuarioModel.email">
+                    </mat-form-field>
+                    <div *ngIf="formGroup.get('emailCtrl').hasError('required') && formGroup.get('emailCtrl').touched" class="text-error">
+                        Obligatorio
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Usuario</mat-label>
+                        <input matInput placeholder="Usuario" formControlName="usuarioCtrl" [(ngModel)]="usuarioModel.user">
+                    </mat-form-field>
+                    <div *ngIf="formGroup.get('usuarioCtrl').hasError('required') && formGroup.get('usuarioCtrl').touched" class="text-error">
+                        Obligatorio
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput placeholder="Usuario" formControlName="nombreCtrl" [(ngModel)]="usuarioModel.name">
+                    </mat-form-field>
+                    <div *ngIf="formGroup.get('nombreCtrl').hasError('required') && formGroup.get('nombreCtrl').touched" class="text-error">
+                        Obligatorio
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Apellido</mat-label>
+                        <input matInput placeholder="Usuario" formControlName="apellidoCtrl" [(ngModel)]="usuarioModel.lastname">
+                    </mat-form-field>
+                    <div *ngIf="formGroup.get('apellidoCtrl').hasError('required') && formGroup.get('apellidoCtrl').touched" class="text-error">
+                        Obligatorio
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Estado</mat-label>
+                        <mat-select [(ngModel)]="usuarioModel.state" name="Estado" formControlName="estadoCtrl">
+                            <mat-option [value]="true">Activo </mat-option>
+                            <mat-option [value]="false"> Inactivo </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div *ngIf="formGroup.get('estadoCtrl').hasError('required') && formGroup.get('estadoCtrl').touched" class="text-error">
+                        Obligatorio
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-buttons">
+                <button type="button" class="btn btn-primary" [disabled]="!formGroup.valid" (click)="save()">
+                   Guardar
+                </button>
+                <button type="button" class="btn btn-default" (click)="clear()">Cerrar</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,97 @@
+@import "../../../styles.scss";
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.example-container .mat-form-field+.mat-form-field {
+    margin-left: 8px;
+}
+
+.example-container .mat-form-field {
+    width: 220px;
+}
+
+.example-container form {
+    margin-bottom: 20px;
+}
+
+.example-container form>* {
+    margin: 5px 0;
+}
+
+.example-container .mat-radio-button {
+    margin: 0 12px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.form-buttons {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.form-buttons button {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 4px;
+    margin-right: 4px;
+    display: flex;
+    align-content: flex-end;
+}
+
+.btn-primary {
+    background-color: $violeta;
+    color: white;
+    border: 1px $violeta solid;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open>.dropdown-toggle.btn-primary {
+    color: white;
+    background-color: $violeta;
+    border: 1px $violeta solid;
+}
+
+.btn-default {
+    background-color: $violeta;
+    color: $white;
+}
+
+.main-text {
+    min-height: 70px;
+    background: $white;
+    h1 {
+        color: $violeta;
+        font-weight: bold;
+        margin: 0;
+        span {
+            font-weight: normal;
+            font-size: 1.5em;
+            color: $black;
+        }
+    }
+}
+
+.text-error {
+    color: $red;
+}
