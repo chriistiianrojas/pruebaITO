@@ -1,3 +1,31 @@
+@import "../../../styles.scss";
 table {
     width: 100%;
+}
+
+.example-form {
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+}
+
+.container-table {
+    padding: 10px;
+    margin: 5px;
+}
+
+.form-buttons {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.form-buttons button {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 4px;
+    margin-right: 4px;
+    display: flex;
+    align-content: flex-end;
 }

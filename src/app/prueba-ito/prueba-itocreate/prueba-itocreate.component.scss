@@ -72,6 +72,11 @@
     border: 1px $violeta solid;
 }
 
+button:disabled {
+    background-color: $gray-1;
+    cursor: not-allowed;
+}
+
 .btn-default {
     background-color: $violeta;
     color: $white;

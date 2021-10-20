@@ -1,14 +1,15 @@
+@import "../../styles.scss";
 .main-text {
     min-height: 70px;
-    background: white;
+    background: $white;
     h1 {
-        color: green;
+        color: $violeta;
         font-weight: 500;
         margin: 0;
         span {
             font-weight: normal;
             font-size: 0.8em;
-            color: black;
+            color: $black;
         }
     }
 }

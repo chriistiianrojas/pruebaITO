@@ -1,6 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { PruebaITOService } from '../prueba-ito.service';
+import { UsuarioModel } from '../usuario.model';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -8,22 +12,22 @@ export interface PeriodicElement {
   symbol: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
+
 @Component({
   selector: 'app-prueba-itolist',
   templateUrl: './prueba-itolist.component.html',
-  styleUrls: ['./prueba-itolist.component.scss']
+  styleUrls: ['./prueba-itolist.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition(
+        'expanded <=> collapsed',
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ),
+    ]),
+  ],
 })
 export class PruebaITOListComponent implements OnInit {
 
@@ -37,6 +41,9 @@ export class PruebaITOListComponent implements OnInit {
   reportTableLength: number = 0;
   reportTableSize: number = 10;
   paginator: MatPaginator;
+  softwareList: any[];
+  loadingReserves: boolean;
+  totalSoftware: number;
 
   @ViewChild('paginador', { static: false })
   set paginatorRef(paginator: MatPaginator) {
@@ -44,18 +51,44 @@ export class PruebaITOListComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['user', 'email', 'name', 'lastname', 'option'];
   dataSource = null;
-  constructor() {
-    this.dataSource = new MatTableDataSource<any>(Object.assign([], ELEMENT_DATA));
-
+  formGroup: FormGroup;
+  usuarioModel: UsuarioModel = new UsuarioModel();
+  constructor(private formBuilder: FormBuilder, private pruebaService: PruebaITOService) {
+    this.dataSource = new MatTableDataSource<any>(Object.assign([], []));
+    this.formGroup = this.formBuilder.group({
+      emailCtrl: [""],
+      usuarioCtrl: [""],
+      nombreCtrl: [""],
+      apellidoCtrl: [""],
+    })
   }
 
   ngOnInit(): void {
     console.log("pr")
-    this.total = ELEMENT_DATA.length;
-    this.dataSource = new MatTableDataSource<any>(Object.assign([], ELEMENT_DATA));
+    this.dataSource = new MatTableDataSource<UsuarioModel>();
+
+    this.pruebaService.getuserList();
+    this.pruebaService.currentSearchCollection.subscribe((completeList) => {
+      if (completeList !== null) {
+
+        if (completeList.list) {
+          console.log(completeList.list);
+          this.dataSource = new MatTableDataSource<UsuarioModel>(Object.assign([], completeList.list));
+          this.dataSource.paginator = this.paginator;
+          console.log(this.dataSource);
+
+          this.total = completeList.list;
+        } else {
+          this.dataSource = new MatTableDataSource<UsuarioModel>(Object.assign([], []));
+
+        }
+      }
+    });
+
   }
+
 
   cambioPagina(evento) {
 
@@ -63,6 +96,10 @@ export class PruebaITOListComponent implements OnInit {
     this.pageIndex = evento.pageIndex;
     this.from = this.pageIndex * this.pageSize;
   }
+  filtart() {
+    this.pruebaService.filter(this.usuarioModel);
+  }
+  clear() {
 
-
+  }
 }
