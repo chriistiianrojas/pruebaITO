@@ -69,21 +69,22 @@ const MaterialComponents = [
   MatToolbarModule,
   MatTooltipModule,
   MatTreeModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+
 ];
 
 @NgModule({
-    imports: [ MaterialComponents ],
-    exports: [ MaterialComponents ]
+  imports: [MaterialComponents],
+  exports: [MaterialComponents]
 })
 export class MaterialModule {
-    constructor(public matIconRegistry: MatIconRegistry) {
-    }
+  constructor(public matIconRegistry: MatIconRegistry) {
+  }
 
-    static forRoot(): ModuleWithProviders<MaterialModule> {
-        return {
-            ngModule: MaterialModule,
-            providers: [MatIconRegistry]
-        };
-    }
+  static forRoot(): ModuleWithProviders<MaterialModule> {
+    return {
+      ngModule: MaterialModule,
+      providers: [MatIconRegistry]
+    };
+  }
 }

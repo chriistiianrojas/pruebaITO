@@ -29,3 +29,37 @@ table {
     display: flex;
     align-content: flex-end;
 }
+
+.btn_check {
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    background: $violeta;
+    .mat-icon {
+        color: $white;
+    }
+}
+
+.actions {
+    display: flex;
+    margin-right: 70px;
+    margin-top: 5px;
+    .button-group {
+        padding: 5px;
+        margin-bottom: 5px;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+}
+
+.actions-principal {
+    display: flex;
+    margin-right: 70px;
+    margin-top: 5px;
+    align-items: flex-end;
+    justify-content: flex-end;
+    .button-group-principal {
+        padding: 5px;
+        margin-bottom: 5px;
+    }
+}

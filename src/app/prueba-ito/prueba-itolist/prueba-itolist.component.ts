@@ -1,8 +1,10 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ModalComponent } from '../modal/modal.component';
 import { PruebaITOService } from '../prueba-ito.service';
 import { UsuarioModel } from '../usuario.model';
 export interface PeriodicElement {
@@ -51,11 +53,11 @@ export class PruebaITOListComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  displayedColumns: string[] = ['user', 'email', 'name', 'lastname', 'option'];
+  displayedColumns: string[] = ['user', 'email', 'name', 'lastname', 'state', 'option'];
   dataSource = null;
   formGroup: FormGroup;
   usuarioModel: UsuarioModel = new UsuarioModel();
-  constructor(private formBuilder: FormBuilder, private pruebaService: PruebaITOService) {
+  constructor(private formBuilder: FormBuilder, private pruebaService: PruebaITOService, public dialog: MatDialog) {
     this.dataSource = new MatTableDataSource<any>(Object.assign([], []));
     this.formGroup = this.formBuilder.group({
       emailCtrl: [""],
@@ -66,7 +68,6 @@ export class PruebaITOListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("pr")
     this.dataSource = new MatTableDataSource<UsuarioModel>();
 
     this.pruebaService.getuserList();
@@ -74,10 +75,8 @@ export class PruebaITOListComponent implements OnInit {
       if (completeList !== null) {
 
         if (completeList.list) {
-          console.log(completeList.list);
           this.dataSource = new MatTableDataSource<UsuarioModel>(Object.assign([], completeList.list));
           this.dataSource.paginator = this.paginator;
-          console.log(this.dataSource);
 
           this.total = completeList.list;
         } else {
@@ -101,5 +100,14 @@ export class PruebaITOListComponent implements OnInit {
   }
   clear() {
 
+  }
+
+  openDialog(title: string, typeForm: number, user: UsuarioModel) {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      data: { title: title, typeForm: typeForm, user: user }
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 }

@@ -49,10 +49,12 @@
                 <div class="form-group">
                     <mat-form-field appearance="fill">
                         <mat-label>Estado</mat-label>
+
                         <mat-select [(ngModel)]="usuarioModel.state" name="Estado" formControlName="estadoCtrl">
                             <mat-option [value]="true">Activo </mat-option>
                             <mat-option [value]="false"> Inactivo </mat-option>
                         </mat-select>
+
                     </mat-form-field>
                     <div *ngIf="formGroup.get('estadoCtrl').hasError('required') && formGroup.get('estadoCtrl').touched" class="text-error">
                         Obligatorio
@@ -60,9 +62,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-12">
             <div class="form-buttons">
-                <button type="button" class="btn btn-primary" [disabled]="!formGroup.valid" (click)="save()">
+                <button type="button" class="btn btn-primary" *ngIf="typeFormVal!==3" [disabled]="!formGroup.valid" (click)="save()">
                    Guardar
                 </button>
                 <button type="button" class="btn btn-default" (click)="clear()">Cerrar</button>

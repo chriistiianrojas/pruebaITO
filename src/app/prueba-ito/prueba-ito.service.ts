@@ -32,14 +32,20 @@ export class PruebaITOService {
     return this.userList;
   }
 
+  saveUser(user: UsuarioModel) {
+    return user._id ? this.edituser(user) : this.createUser(user);
+  }
+
   createUser(user: UsuarioModel) {
     user._id = this.userList.length;
     this.userList.push(user);
     this.getList();
+    return true;
   }
   edituser(user: UsuarioModel) {
     this.userList.filter(u => u._id === user._id ? u = user : null);
     this.getList();
+    return true;
   }
 
   filter(params: UsuarioModel) {
